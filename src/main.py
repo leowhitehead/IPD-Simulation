@@ -4,5 +4,16 @@ import sys
 
 strategies = inspect.getmembers(sys.modules["agents"], inspect.isclass)
 
+def playRound(agentA, agentB):
+    AChoice = agentA.playRound(agentB.roundHistory)
+    BChoice = agentB.playRound(agentA.roundHistory[:-1]) #prevent from knowing current move
+    return AChoice, BChoice
+
 a = agents.unconditionalCooperator()
-print(a.roundHistory)
+b = agents.unconditionalDefector()
+c = agents.titForTat()
+d = agents.randomChoice()
+for i in range(10):
+    print(f"Round {i}:", playRound(b,c))
+
+print(c.roundHistory)
