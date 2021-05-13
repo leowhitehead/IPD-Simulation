@@ -109,6 +109,88 @@ class imperfectTitForTat:
             c = not lastMove
         self.roundHistory.append(c)
         return c
+
+class titForTwoTats:
+    def __init__(self):
+        self.roundHistory = []
+    
+    def __str__(self):
+        return "Tit for Two Tats"
+    
+    def playRound(self, opponentMoves):
+        if len(self.roundHistory) <= 1:
+            self.roundHistory.append(True)
+            return True
+
+        if opponentMoves[-1] == False and opponentMoves[-2] == False:
+            self.roundHistory.append(False)
+            return False
+        self.roundHistory.append(True)
+        return True
+
+class grudger:
+    def __init__(self):
+        self.roundHistory = []
+    
+    def __str__(self):
+        return "Grudger"
+    
+    def playRound(self, opponentMoves):
+        c = not False in opponentMoves
+        self.roundHistory.append(c)
+        return c
+
+class pavlov:
+    def __init__(self):
+        self.roundHistory = []
+
+    def __str__(self):
+        return "Pavlov"
+
+    def playRound(self, opponentMoves):
+        if len(opponentMoves) == 0:
+            self.roundHistory.append(True)
+            return True
+        if opponentMoves[-1] == True and self.roundHistory[-1] == False or opponentMoves[-1] == False and self.roundHistory[-1] == True:
+            self.roundHistory.append(False)
+            return False
+        self.roundHistory.append(True)
+        return True
+
+class nPavlov:
+    def __init__(self):
+        self.roundHistory = []
+        self.P = [] #probabilities of cooperation
+        self.n = 0
+    
+    def __str__(self):
+        return "n-Pavlov"
+    
+    def f(self, op,x,y):
+        if op == '+':
+            return min(x+y,1)
+        elif op == '-':
+            return max(x-y,0)
+
+    def playRound(self, opponentMoves):
+        self.n += 1
+        if len(opponentMoves) == 0:
+            self.P.append(1)
+            self.roundHistory.append(True)
+            return True
+        if opponentMoves[-1] and self.roundHistory[-1]:
+            Pn = self.f('+',self.P[-1],1/self.n)
+        elif not opponentMoves[-1] and not self.roundHistory[-1]:
+            Pn = self.f('-', self.P[-1], 1/self.n)
+        elif not self.roundHistory[-1] and opponentMoves[-1]:
+            Pn = self.f('+',self.P[-1],2/self.n)
+        elif self.roundHistory[-1] and not opponentMoves[-1]:
+            Pn = self.f('-', self.P[-1], 2/self.n)
+        c = random.random() < Pn
+        self.P.append(Pn)
+        self.roundHistory.append(c)
+        return c
+        
 '''
  3 3     0 5
 

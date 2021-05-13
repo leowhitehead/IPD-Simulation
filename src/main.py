@@ -13,9 +13,9 @@ a = agents.unconditionalCooperator()
 b = agents.unconditionalDefector()
 c = agents.titForTat()
 d = agents.randomChoice()
-e = agents.imperfectTitForTat()
+e = agents.nPavlov()
 for i in range(10):
-    print(f"Round {i}:", playRound(c,e))
+    print(f"Round {i}:", playRound(d,e))
 
 
 '''
