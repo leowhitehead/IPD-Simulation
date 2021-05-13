@@ -2,6 +2,7 @@ import agents
 import inspect
 import sys
 from pprint import pprint
+
 strategies = inspect.getmembers(sys.modules["agents"], inspect.isclass)
 
 def ave(l):

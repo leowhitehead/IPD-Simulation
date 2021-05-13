@@ -190,7 +190,19 @@ class nPavlov:
         self.P.append(Pn)
         self.roundHistory.append(c)
         return c
-        
+
+class alternator:
+    def __init__(self):
+        self.roundHistory = []
+    
+    def __str__(self):
+        return "Alternating strategy"
+    
+    def playRound(self, opponentMoves):
+        c = len(opponentMoves)%2 == 0
+        self.roundHistory.append(c)
+        return c   
+
 '''
  3 3     0 5
 
